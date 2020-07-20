@@ -1,0 +1,10 @@
+{
+    "host": "localhost",
+    "port": 3306,
+    "db_name": "alten_db",
+
+    "user": {
+        "name": "admin",
+        "password": "1qaZXsw2"
+    }
+}
