@@ -8,6 +8,7 @@ class GallerySerialize(serializers.Serializer):
             'id',
             'name',
             'descriptor',
+            'head_image',
             'created_at'
         ]
 
@@ -18,5 +19,6 @@ class ImagesSerializer(serializers.Serializer):
             'id',
             'image',
             'descriptor',
+            'gallery',
             'created_at'
         ]

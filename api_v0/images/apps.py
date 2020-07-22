@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class ImagesConfig(AppConfig):
     name = 'images'
-    verbose_name = 'Альбомы и изображения'
+    verbose_name = 'Галерея и изображения'
