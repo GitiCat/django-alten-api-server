@@ -6,13 +6,13 @@ from .serializers import NewsSerializer
 
 @csrf_exempt
 def news_list(request):
-    if request.methon == 'GET':
+    if request.method == 'GET':
         news = News.objects.all()
         serializer = NewsSerializer(news, many=True)
 
         return JsonResponse(serializer.data, safe=False)
 
-    elif request.methon == 'POST':
+    elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = NewsSerializer(data=data)
 

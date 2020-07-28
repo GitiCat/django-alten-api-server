@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Gallery, Images
 
-class GallerySerialize(serializers.Serializer):
+class GallerySerialize(serializers.ModelSerializer):
     class Meta:
         model = Gallery
         fields = [
@@ -12,7 +12,7 @@ class GallerySerialize(serializers.Serializer):
             'created_at'
         ]
 
-class ImagesSerializer(serializers.Serializer):
+class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
         fields = [

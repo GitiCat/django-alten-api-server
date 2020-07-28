@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from .article.views import article_list, category_article_list
 from .images.views import gallery_list, images_list
