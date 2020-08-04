@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'tinymce',
     'api_v0.article',
     'api_v0.images',
-    'api_v0.news'
+    'api_v0.news',
+    'api_v0.files',
+    'api_v0.documents'
 ]
 
 MIDDLEWARE = [
@@ -62,7 +64,9 @@ ROOT_URLCONF = 'server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'frontend_app', 'template')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,7 +161,9 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

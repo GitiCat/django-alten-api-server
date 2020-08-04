@@ -7,6 +7,19 @@ from .serializers import NewsSerializer
 @csrf_exempt
 def news_list(request):
     if request.method == 'GET':
+        if request.GET.get('id'):
+            item_id = request.GET.get('id')
+            item = News.objects.filter(id=item_id)
+
+            if not item:
+                return JsonResponse({
+                    'error': 'News by id: {0} not found...'.format(item_id),
+                    'status_code': 404
+                }, status=404, safe=False)
+
+            serializer = NewsSerializer(item, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        
         news = News.objects.all()
         serializer = NewsSerializer(news, many=True)
 
