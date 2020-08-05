@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'api_v0.images',
     'api_v0.news',
     'api_v0.files',
-    'api_v0.documents'
+    'api_v0.documents',
+    'api_v0.product'
 ]
 
 MIDDLEWARE = [
