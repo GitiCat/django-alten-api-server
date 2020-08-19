@@ -5,7 +5,7 @@ from .images.views import gallery_list, images_list
 from .news.views import news_list
 from .files.views import files_list, list_files_list
 from .documents.views import documents_list, category_document_list
-from .product.views import product_list, category_product_list
+from .product.views import product_list, category_product_list, products_by_category_list
 
 urlpatterns = [
     path('articles/', article_list),
@@ -18,5 +18,6 @@ urlpatterns = [
     path('documents/', documents_list),
     path('category-documents/', category_document_list),
     path('products', product_list),
-    path('categories-product', category_product_list)
+    path('categories-product', category_product_list),
+    path('products-by-category', products_by_category_list)
 ]
