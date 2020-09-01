@@ -30,7 +30,7 @@ if socket.gethostname() == 'npk-alten.ru':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.173']
 
 # Application definition
 INSTALLED_APPS = [
@@ -85,11 +85,25 @@ REST_FRAMEWORK = {
 }
 
 TINYMCE_DEFAULT_CONFIG = {
+    'language': 'ru',
     'height': 480,
     'width': 1120,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
+    'valid_styles': {
+        'div': '', 
+        'p': '', 
+        'table': '', 
+        'tr': '', 
+        'td': ''
+    },
+    'valid_classes': {
+        '*': ''
+    },
+    'extended_valid_elements': 'table[class],td[class],span[class]',
+    'invalid_elements': 'span',
+    'cleanup': True,
     'plugins': '''
             textcolor save link image media preview codesample contextmenu
             table code lists fullscreen  insertdatetime  nonbreaking
@@ -107,9 +121,7 @@ TINYMCE_DEFAULT_CONFIG = {
             visualblocks visualchars |
             charmap hr pagebreak nonbreaking anchor |  code |
             ''',
-    'contextmenu': 'formats | link image',
-    'menubar': True,
-    'statusbar': True,
+    'contextmenu': 'formats | link image'
 }
 
 WSGI_APPLICATION = 'server.wsgi.application'

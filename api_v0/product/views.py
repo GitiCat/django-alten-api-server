@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.parsers import JSONParser
 from .models import Product, CategoryProduct
 from .serializers import ProductSerializer, CategoryProductSerializer
@@ -7,6 +8,21 @@ from .serializers import ProductSerializer, CategoryProductSerializer
 @csrf_exempt
 def product_list(request):
     if request.method == 'GET':
+        if request.GET:
+            query = request.GET
+
+            products = Product.objects.filter(category=query['category'])
+
+            if not products: 
+                return JsonResponse({
+                    'string': 'Products with category {0} is not found...'.format(query['category']),
+                    'status_code': 404
+                }, status=404, safe=False)
+            
+            serializer = ProductSerializer(products, many=True)
+
+            return JsonResponse(serializer.data, safe=False)
+        
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
 
@@ -44,27 +60,36 @@ def category_product_list(request):
 
 def products_by_category_list(request):
     if request.method == 'GET':
-        categories = CategoryProduct.objects.all().order_by('created_at')
-        products = Product.objects.all()
+        products = Product.objects.all().order_by('created_at')
 
+        categories = CategoryProduct.objects.all()
         categories_serializer = CategoryProductSerializer(categories, many=True)
-        products_serializer = ProductSerializer(products, many=True)
+        categories_data = categories_serializer.data
 
-        data = []
-        category_arr = {}
-
-        for category in categories_serializer.data:
-            category_arr = {
+        returned_data = []
+        category_item = {}
+        
+        for category in categories_data:
+            category_item = {
+                'id': category['id'],
                 'title': category['title'],
                 'descriptor': category['descriptor'],
                 'items': []
             }
 
-            products_by_category = products.filter(category=category['id'])
+            products_in_category = products.filter(category=category['id'])
+            products_serializer = ProductSerializer(products_in_category, many=True)
+            products_data = products_serializer.data
 
-            for product in products_by_category:
-                category_arr['items'].append(product)
-            
-            data.append(category_arr)
-        
-        return JsonResponse(data=data, safe=False)
+            for product in products_data:
+                category_item['items'].append({
+                    'id': product['id'],
+                    'title': product['title'],
+                    'descriptor': product['descriptor'],
+                    'feature': product['feature'],
+                    'image': product['main_image'],
+                    'file': product['file']
+                })
+            returned_data.append(category_item)
+
+        return JsonResponse(returned_data, safe=False)
