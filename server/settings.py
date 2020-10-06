@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'api_v0.files',
     'api_v0.documents',
     'api_v0.product',
+    'api_v0.publications',
     'frontend'
 ]
 
