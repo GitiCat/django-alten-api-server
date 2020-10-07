@@ -1,2 +1,5 @@
 **/__pycache__/*
 static/*
+
+config/db_conn.json
+config/email.json
