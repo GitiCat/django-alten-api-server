@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'api_v0.documents',
     'api_v0.product',
     'api_v0.publications',
+    'api_v0.emails',
     'frontend'
 ]
 
@@ -49,6 +50,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'frontend', 'templates')
         ],
         'APP_DIRS': True,
@@ -112,7 +114,6 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 with open(os.path.join(BASE_DIR, "config", "db_conn.json")) as db_conf_file:
     db_conf = json.load(db_conf_file)
 
@@ -133,7 +134,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -149,9 +149,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+with open(os.path.join(BASE_DIR, 'config', 'email.json')) as email_config_file:
+    email_config = json.load(email_config_file)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = email_config['EMAIL_HOST']
+EMAIL_PORT = email_config['EMAIL_PORT']
+EMAIL_HOST_USER = email_config['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = email_config['EMAIL_HOST_PASSWORD']
+EMAIL_USE_SSL = email_config['EMAIL_SSL']
+EMAIL_USE_TLS = email_config['EMAIL_TLS']
+EMAIL_TIMEOUT = email_config['EMAIL_TIMEOUT']
 
 LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
+USE_UTF8 = True
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True

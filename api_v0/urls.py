@@ -7,6 +7,7 @@ from .files.views import files_list, list_files_list
 from .documents.views import documents_list, category_document_list
 from .product.views import product_list, category_product_list, products_by_category_list
 from .publications.views import publication_liss
+from .emails.views import email_list
 
 urlpatterns = [
     path('articles', article_list),
@@ -21,5 +22,6 @@ urlpatterns = [
     path('products', product_list),
     path('categories-product', category_product_list),
     path('products-by-category', products_by_category_list),
-    path('publications', publication_liss)
+    path('publications', publication_liss),
+    path('send_email', email_list)
 ]
