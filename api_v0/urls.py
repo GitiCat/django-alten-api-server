@@ -8,7 +8,7 @@ from .documents.views import documents_list, category_document_list
 from .product.views import product_list, category_product_list, products_by_category_list
 from .publications.views import publication_liss
 from .emails.views import email_list
-from .personnel.views import personnel_list, department_list
+from .personnel.views import personnel_list
 
 urlpatterns = [
     path('articles', article_list),
@@ -25,6 +25,5 @@ urlpatterns = [
     path('products-by-category', products_by_category_list),
     path('publications', publication_liss),
     path('send_email', email_list),
-    path('personnel', personnel_list),
-    path('department', department_list)
+    path('personnel', personnel_list)
 ]

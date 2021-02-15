@@ -4,7 +4,7 @@ from tinymce import models as tinymce_models
 class Department(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField('Название', max_length=256, null=False)
-    descriptor = tinymce_models.HTMLField();
+    descriptor = tinymce_models.HTMLField(verbose_name="Описание", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -21,8 +21,8 @@ class Personnel(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(verbose_name="Имя сотрудника", max_length=256, null=False)
     position = models.CharField(verbose_name="Должность", max_length=100, null=False)
-    department = models.ForeignKey(Department, verbose_name="Подразделение", on_delete=models.SET_NULL, null=True, blank=True)
-    phone = models.CharField(verbose_name="Телефон", max_length=30, null=True, blank=False)
+    department = models.ForeignKey(Department, verbose_name="Подразделение", on_delete=models.SET_NULL, null=True, blank=False)
+    phone = models.CharField(verbose_name="Телефон", max_length=30, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

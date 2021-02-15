@@ -3,7 +3,7 @@ from .models import Personnel, Department
 
 class PersonnelSerialize(serializers.ModelSerializer):
     class Meta:
-        model = Personnel,
+        model = Personnel
         fields = [
             'id',
             'name',
@@ -13,9 +13,9 @@ class PersonnelSerialize(serializers.ModelSerializer):
             'created_at'
         ]
 
-class DeparmentSerialize(serializers.ModelSerializer):
+class DepartmentSerialize(serializers.ModelSerializer):
     class Meta:
-        model = Department,
+        model = Department
         fields = [
             'id',
             'name',
