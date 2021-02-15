@@ -8,15 +8,15 @@ from django.conf.urls.static import static
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^tinymce/', include('tinymce.urls')),
-    re_path(r'^api_v0/', include('api_v0.urls'))
+    re_path(r'^api_v0/', include('api_v0.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
 
-if settings.DEBUG:
-    urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]
-
 urlpatterns += [
     re_path(r'^.*$', include('frontend.urls'), name='frontend'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]
