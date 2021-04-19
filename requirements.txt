@@ -11,7 +11,7 @@ Django==3.1
 django-filter==2.3.0
 django-hashedfilenamestorage==2.4.1
 django-tinymce==3.0.2
-djangorestframework==3.11.1
+djangorestframework==3.11.2
 Flask==1.1.2
 Flask-BasicAuth==0.2.0
 gevent==20.9.0
