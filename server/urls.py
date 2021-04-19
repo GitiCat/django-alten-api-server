@@ -17,6 +17,3 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DI
 urlpatterns += [
     re_path(r'^.*$', include('frontend.urls'), name='frontend'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

@@ -11,7 +11,7 @@ class News(models.Model):
     main_image = models.ImageField('Основное изображение', upload_to='uploads/images/', null=True, blank=True)
     gallery = models.ForeignKey(Gallery, verbose_name='Галерея', on_delete=models.SET_NULL, null=True, blank=True)
     original_url = models.URLField('Ссылка на оригинал', null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
         return self.name

@@ -1,15 +1,22 @@
 from rest_framework import serializers
-from .models import Personnel, Department
+from .models import Personnel, Department, CommunicationMethod
 
-class PersonnelSerialize(serializers.ModelSerializer):
+class CommunicationMethodSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Personnel
+        model = CommunicationMethod
         fields = [
             'id',
+            'is_visible',
             'name',
+            'descriptor',
+            'responsible',
             'position',
-            'department',
             'phone',
+            'is_phone_visible',
+            'fax',
+            'is_fax_visible',
+            'email',
+            'is_email_visible',
             'created_at'
         ]
 
@@ -20,5 +27,21 @@ class DepartmentSerialize(serializers.ModelSerializer):
             'id',
             'name',
             'descriptor',
+            'created_at'
+        ]
+
+class PersonnelSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = Personnel
+        fields = [
+            'id',
+            'name',
+            'position',
+            'department',
+            'communication_method',
+            'phone',
+            'is_phone_visible',
+            'email',
+            'is_email_visible',
             'created_at'
         ]

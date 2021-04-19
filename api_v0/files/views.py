@@ -10,7 +10,7 @@ def files_list(request):
         files = File.objects.all()
         serializer = FileSerializer(files, many=True)
 
-        return JsonResponse(serializer, safe=False)
+        return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
@@ -27,9 +27,9 @@ def files_list(request):
 def list_files_list(request):
     if request.method == 'GET':
         lists_files = ListFiles.objects.all()
-        serialiser = ListFilesSerializer(lists_files, many=True)
+        serializer = ListFilesSerializer(lists_files, many=True)
 
-        return JsonResponse(serialiser, safe=False)
+        return JsonResponse(serializer.data, safe=False)
 
     if request.method == 'POST':
         data = JSONParser().parse(request)

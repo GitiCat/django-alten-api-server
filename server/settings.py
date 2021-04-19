@@ -41,11 +41,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += ['silk',]
-    MIDDLEWARE += ['silk.middleware.SilkyMiddleware',]
-
 ROOT_URLCONF = 'server.urls'
+DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
 
 TEMPLATES = [
     {
@@ -85,9 +82,9 @@ TINYMCE_DEFAULT_CONFIG = {
         'td': ''
     },
     'valid_classes': {
-        '*': ''
+        '*': ['left', 'right'],
     },
-    'extended_valid_elements': 'table[class],td[class],span[class]',
+    'extended_valid_elements': 'table[class],td[class],span[class],img[class, img, width, height, alt]',
     'invalid_elements': 'span',
     'cleanup': True,
     'plugins': '''
@@ -126,15 +123,14 @@ DATABASES = {
             "port": db_conf["port"],
             "db": db_conf["db_name"],
             "user": db_conf["user"]["name"],
-            "passwd": db_conf["user"]["password"]
+            "passwd": db_conf["user"]["password"],
+            "charset": "utf8",
+            "use_unicode": True
         },
         "CONN_MAX_AGE": db_conf["options"]["TTL"]
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -177,3 +173,5 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760

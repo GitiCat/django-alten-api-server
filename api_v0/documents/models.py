@@ -10,7 +10,7 @@ class Document(models.Model):
     category = models.ForeignKey('CategoryDocuments', verbose_name='Категория', on_delete=models.SET_NULL, null=True, blank=True)
     text = tinymce_models.HTMLField('Описание')
     file = models.ForeignKey(File, verbose_name='Файл', on_delete=models.SET_NULL, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class CategoryDocuments(models.Model):
     name = models.CharField('Название категории документов', max_length=100, null=False)
     title = models.CharField('Заголовок', max_length=100, null=False)
     descriptor = models.CharField('Описание', max_length=255, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
         return self.name

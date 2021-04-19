@@ -9,11 +9,14 @@ class PublicationSerializer(serializers.ModelSerializer):
         model = Publication
         fields = [
             'id',
+            'category',
             'name',
             'title',
             'subtitle',
             'descriptor',
             'main_image',
+            'files',
             'url',
-            'is_active'
+            'is_active',
+            'created_at'
         ]

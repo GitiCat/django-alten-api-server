@@ -10,7 +10,7 @@ class Article(models.Model):
     category = models.ForeignKey('CategoryArticle', verbose_name='Категория', on_delete=models.SET_NULL, null=True)
     text = tinymce_models.HTMLField()
     main_image = models.ForeignKey(Images, verbose_name='Основное изображение', on_delete=models.SET_NULL, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
         return self.name
@@ -28,7 +28,7 @@ class CategoryArticle(models.Model):
     name = models.CharField('Название категории статей', max_length=100, null=False)
     title = models.CharField('Заговок', max_length=100, default='', blank=True)
     descriptor = models.CharField('Описание', max_length=255, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
         return self.name

@@ -6,7 +6,7 @@ class EmailModel(models.Model):
     email = models.EmailField('Электронная почта', null=False, blank=False)
     phone = models.CharField('Номер телефона', max_length=25, null=False, blank=False)
     message = models.TextField('Сообщение')
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
         return self.full_name
