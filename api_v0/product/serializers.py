@@ -19,6 +19,7 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
 class CategoryProductSerializer(serializers.ModelSerializer):
+    preview_image = ImagesSerializer()
     class Meta:
         model = CategoryProduct
         fields = [
@@ -26,5 +27,6 @@ class CategoryProductSerializer(serializers.ModelSerializer):
             'name',
             'title',
             'descriptor',
+            'preview_image',
             'created_at'
         ]
