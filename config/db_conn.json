@@ -1,10 +1,10 @@
 {
-    "host": "localhost",
+    "host": "mysql104.1gb.ru",
     "port": 3306,
-    "db_name": "alten_db",
+    "db_name": "gb_alten_ru",
     "user": {
-        "name": "root",
-        "password": "1528340aa"
+        "name": "gb_alten_ru",
+        "password": "W2-fSyfXEhAJ"
     },
     "options": {
         "TTL": 600
