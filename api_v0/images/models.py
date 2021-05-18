@@ -11,11 +11,11 @@ class Gallery(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'Gallery'
+        db_table = 'gallery'
         ordering = ['-created_at']
         verbose_name = 'Галерея'
         verbose_name_plural = 'Галереи'
-        managed = True
+        managed = False
 
 class Images(models.Model):
     id = models.AutoField(primary_key=True)
