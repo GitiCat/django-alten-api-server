@@ -27,6 +27,7 @@ class CategoryProductSerializer(serializers.ModelSerializer):
             'name',
             'title',
             'descriptor',
+            'sub_descriptor',
             'preview_image',
             'created_at'
         ]

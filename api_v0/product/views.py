@@ -74,6 +74,7 @@ def products_by_category_list(request):
                 'id': category['id'],
                 'title': category['title'],
                 'descriptor': category['descriptor'],
+                'sub_descriptor': category['sub_descriptor'],
                 'items': []
             }
 

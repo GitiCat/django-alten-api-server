@@ -29,6 +29,7 @@ class CategoryProduct(models.Model):
     name = models.CharField('Название категории продукции', max_length=100, null=False, blank=False)
     title = models.CharField('Заголовок категории', max_length=255, null=False, blank=False)
     descriptor = tinymce_models.HTMLField(verbose_name='Описание категории', null=True, blank=True)
+    sub_descriptor = tinymce_models.HTMLField(verbose_name='Дополнительное описание категории', null=True, blank=True)
     preview_image = models.ForeignKey(Images, verbose_name='Изображение', on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 

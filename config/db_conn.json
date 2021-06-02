@@ -1,10 +1,10 @@
 {
-    "host": "",
+    "host": "localhost",
     "port": 3306,
-    "db_name": "",
+    "db_name": "alten_db",
     "user": {
-        "name": "",
-        "password": ""
+        "name": "root",
+        "password": "1528340aa"
     },
     "options": {
         "TTL": 600
