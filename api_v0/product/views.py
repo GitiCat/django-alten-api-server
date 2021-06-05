@@ -60,7 +60,7 @@ def category_product_list(request):
 
 def products_by_category_list(request):
     if request.method == 'GET':
-        products = Product.objects.all().order_by('created_at')
+        products = Product.objects.all()
 
         categories = CategoryProduct.objects.all()
         categories_serializer = CategoryProductSerializer(categories, many=True)
