@@ -1,18 +1,16 @@
 from rest_framework import serializers
 
-from .models import News
+from .models import Vacancies
 
-class NewsSerializer(serializers.ModelSerializer):
+class VacanciesSerializer(serializers.ModelSerializer):
     class Meta: 
-        model = News
+        model = Vacancies
         fields = [
             'id',
             'name',
             'title',
             'subtitle',
-            'text',
-            'main_image',
-            'gallery',
-            'original_url',
+            'descriptor',
+            'is_active',
             'created_at'
         ]

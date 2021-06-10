@@ -21,11 +21,10 @@ INSTALLED_APPS = [
     'tinymce',
     'api_v0.article',
     'api_v0.images',
-    'api_v0.news',
+    'api_v0.vacancies',
     'api_v0.files',
     'api_v0.documents',
     'api_v0.product',
-    'api_v0.publications',
     'api_v0.emails',
     'api_v0.personnel',
     'frontend'
