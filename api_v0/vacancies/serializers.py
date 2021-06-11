@@ -1,16 +1,13 @@
 from rest_framework import serializers
 
-from .models import Vacancies
+from .models import Vacancies, Employment
 
 class VacanciesSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Vacancies
-        fields = [
-            'id',
-            'name',
-            'title',
-            'subtitle',
-            'descriptor',
-            'is_active',
-            'created_at'
-        ]
+        fields = '__all__'
+
+class EmploymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employment
+        fields = '__all__'
