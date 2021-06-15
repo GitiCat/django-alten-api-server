@@ -20,7 +20,7 @@ def vacancies_list(request):
             serialize = VacanciesSerializer(vacancy, many=True)
             return JsonResponse(serialize.data, safe=False)
 
-        model = Vacancies.objects.all()
+        model = Vacancies.objects.filter(is_active=True)
         serialize = VacanciesSerializer(model, many=True)
         return JsonResponse(serialize.data, safe=False)
 
