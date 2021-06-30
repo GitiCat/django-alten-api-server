@@ -13,7 +13,7 @@ class Document(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
-        return self.name
+        return self.title
 
     class Meta:
         db_table = 'documents'
@@ -27,10 +27,11 @@ class CategoryDocuments(models.Model):
     name = models.CharField('Название категории документов', max_length=100, null=False)
     title = models.CharField('Заголовок', max_length=100, null=False)
     descriptor = models.CharField('Описание', max_length=255, null=True, blank=True)
+    root_category = models.ForeignKey('self', verbose_name='Родительская категория', on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
-        return self.name
+        return self.title
     
     class Meta:
         db_table = 'category_documents'

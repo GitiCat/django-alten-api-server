@@ -7,30 +7,15 @@ from .serializers import DocumentSerializer, CategoryDocumentsSerializer
 @csrf_exempt
 def documents_list(request):
     if request.method == 'GET':
-        documents = Document.objects.all()
+        categories = CategoryDocuments.objects.all()
 
         data = []
-        category_arr = {}
+        categories_serialize = CategoryDocumentsSerializer(categories, many=True)
 
-        categories = CategoryDocuments.objects.all()
-        category_data = CategoryDocumentsSerializer(categories, many=True).data
-        
-        for category in category_data:
-            category_arr = {
-                'title': category['title'],
-                'descriptor': category['descriptor'],
-                'items': []
-            }
-
-            documents_on_category = documents.filter(category=category['id']).order_by('created_at')
-            document_data = DocumentSerializer(documents_on_category, many=True).data
-            document_arr = []
-            
-            for document in document_data:
-                document_arr.append(document)
-
-            category_arr['items'] = document_arr
-            data.append(category_arr)
+        for category in categories_serialize.data:
+            arr = formation_document_list(category)
+            if arr:
+                data.append(formation_document_list(category))
 
         return JsonResponse(data, safe=False)
 
@@ -44,6 +29,60 @@ def documents_list(request):
             return JsonResponse(serializer.data)
 
         return JsonResponse(serializer.errors)
+
+def get_documents_by_category_id(id):
+    result = []
+
+    documents = Document.objects.filter(category=id)
+    data = DocumentSerializer(documents, many=True).data
+
+    if data:
+        for item in data:
+            result.append(item)
+
+    return result
+
+def formation_childs_element(category):
+    result = []
+    
+    child_categories = CategoryDocuments.objects.filter(root_category=category['id'])
+
+    if not child_categories:
+        return None
+    
+    child_categories_data = CategoryDocumentsSerializer(child_categories, many=True).data
+    
+    for child_category in child_categories_data:
+        arr = {
+            'title': child_category['title'],
+            'descriptor': child_category['descriptor'],
+            'documents': get_documents_by_category_id(child_category['id']),
+            'childs': []
+        }
+
+        if CategoryDocuments.objects.filter(root_category=child_category['id']):
+            arr['childs'] = formation_childs_element(child_category)
+        else:
+            arr['childs'] = None
+        
+        result.append(arr)
+
+    return result
+
+def formation_document_list(category):
+    result = []
+    if not category['root_category']:
+        category_arr = {
+            'title': category['title'],
+            'descriptor': category['descriptor'],
+            'documents': get_documents_by_category_id(category['id']),
+            'childs': []
+        }
+
+        category_arr['childs'] = formation_childs_element(category)
+        result.append(category_arr)
+
+    return result
 
 @csrf_exempt
 def category_document_list(request):

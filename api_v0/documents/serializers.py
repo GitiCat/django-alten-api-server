@@ -20,10 +20,4 @@ class DocumentSerializer(serializers.ModelSerializer):
 class CategoryDocumentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryDocuments
-        fields = [
-            'id',
-            'name',
-            'title',
-            'descriptor',
-            'created_at'
-        ]
+        fields = '__all__'
