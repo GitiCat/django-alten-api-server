@@ -7,16 +7,37 @@ from .serializers import DocumentSerializer, CategoryDocumentsSerializer
 @csrf_exempt
 def documents_list(request):
     if request.method == 'GET':
+        if request.GET:
+            # Selected data array from database
+            categories = CategoryDocuments.objects.all()
+            data = []
+            query_category = None 
+            query_excludes = None
+            
+            query = request.GET
+            if 'category' in query: query_category = query['category']
+            if 'excludes' in query: query_excludes = query.getlist('excludes')
+
+            if query_category:
+                categories = categories.filter(name=query_category)
+
+            if query_excludes:
+                for exclude in query_excludes:
+                    categories = categories.exclude(name=exclude)
+
+            if not categories:
+                return JsonResponse({
+                    'string': 'Categories documents with name {0} is not found...'.format(query_category),
+                    'status_code': 404
+                }, status=404, safe=False)
+
+            serializer = CategoryDocumentsSerializer(categories, many=True)
+            data = get_data_json(serializer.data)
+            return JsonResponse(data, safe=False)
+            
         categories = CategoryDocuments.objects.all()
-
-        data = []
-        categories_serialize = CategoryDocumentsSerializer(categories, many=True)
-
-        for category in categories_serialize.data:
-            arr = formation_document_list(category)
-            if arr:
-                data.append(formation_document_list(category))
-
+        serializer = CategoryDocumentsSerializer(categories, many=True)
+        data = get_data_json(serializer.data)
         return JsonResponse(data, safe=False)
 
     elif request.method == 'POST':
@@ -54,6 +75,7 @@ def formation_childs_element(category):
     
     for child_category in child_categories_data:
         arr = {
+            'id': child_category['id'],
             'title': child_category['title'],
             'descriptor': child_category['descriptor'],
             'documents': get_documents_by_category_id(child_category['id']),
@@ -70,9 +92,11 @@ def formation_childs_element(category):
     return result
 
 def formation_document_list(category):
-    result = []
+    category_arr = {}
     if not category['root_category']:
         category_arr = {
+            'id': category['id'],
+            'name': category['name'],
             'title': category['title'],
             'descriptor': category['descriptor'],
             'documents': get_documents_by_category_id(category['id']),
@@ -80,7 +104,16 @@ def formation_document_list(category):
         }
 
         category_arr['childs'] = formation_childs_element(category)
-        result.append(category_arr)
+
+    return category_arr
+
+def get_data_json(data): 
+    result = []
+    
+    for item in data:
+        arr = formation_document_list(item)
+        if arr:
+            result.append(arr)
 
     return result
 
